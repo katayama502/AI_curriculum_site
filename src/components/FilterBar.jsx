@@ -21,13 +21,24 @@ export default function FilterBar({
   onCategoryChange,
   onSearchChange,
   resultCount,
+  showFavoritesOnly,
+  onToggleFavorites,
+  showUnlearnedOnly,
+  onToggleUnlearned,
 }) {
-  const hasActiveFilter = selectedProvider !== 'all' || selectedCategory !== 'all' || searchQuery
+  const hasActiveFilter =
+    selectedProvider !== 'all' ||
+    selectedCategory !== 'all' ||
+    searchQuery ||
+    showFavoritesOnly ||
+    showUnlearnedOnly
 
   const handleReset = () => {
     onProviderChange('all')
     onCategoryChange('all')
     onSearchChange('')
+    if (showFavoritesOnly) onToggleFavorites()
+    if (showUnlearnedOnly) onToggleUnlearned()
   }
 
   return (
@@ -57,6 +68,40 @@ export default function FilterBar({
               <X size={14} />
             </button>
           )}
+        </div>
+
+        {/* Quick toggles: Favorites & Unlearned */}
+        <div>
+          <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">
+            クイック絞り込み
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={onToggleFavorites}
+              aria-pressed={showFavoritesOnly}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 ${
+                showFavoritesOnly
+                  ? 'bg-rose-500 text-white border-rose-500 shadow-sm'
+                  : 'bg-rose-50 dark:bg-rose-900/20 text-rose-500 dark:text-rose-400 border-transparent hover:bg-rose-100 dark:hover:bg-rose-900/30'
+              }`}
+            >
+              <span aria-hidden="true">{showFavoritesOnly ? '♥' : '♡'}</span>
+              お気に入り
+            </button>
+
+            <button
+              onClick={onToggleUnlearned}
+              aria-pressed={showUnlearnedOnly}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 border focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 ${
+                showUnlearnedOnly
+                  ? 'bg-amber-500 text-white border-amber-500 shadow-sm'
+                  : 'bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 border-transparent hover:bg-amber-100 dark:hover:bg-amber-900/30'
+              }`}
+            >
+              <span aria-hidden="true">📖</span>
+              未学習
+            </button>
+          </div>
         </div>
 
         {/* Provider filter */}

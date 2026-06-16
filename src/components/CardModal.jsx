@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
-import { X, ExternalLink, Play, CheckCircle2 } from 'lucide-react'
+import { X, ExternalLink, Play, CheckCircle2, Heart } from 'lucide-react'
 import { providers, commonProvider, categories, levels } from '../data/content.js'
+import { useProgress } from '../context/CardProgressContext.jsx'
 
 const allProviders = [commonProvider, ...providers]
 
@@ -13,6 +14,27 @@ export default function CardModal({ card, onClose }) {
   const provider = allProviders.find((p) => p.id === card.providerId) || commonProvider
   const category = categories.find((c) => c.id === card.categoryId)
   const level = levels[card.level]
+
+  const { isFavorite, isCompleted, toggleFavorite, toggleCompleted } = useProgress()
+  const fav = isFavorite(card.id)
+  const done = isCompleted(card.id)
+
+  const [btnScale, setBtnScale] = useState({ fav: false, done: false })
+
+  const animateBtn = useCallback((which) => {
+    setBtnScale((s) => ({ ...s, [which]: true }))
+    setTimeout(() => setBtnScale((s) => ({ ...s, [which]: false })), 300)
+  }, [])
+
+  const handleFav = useCallback(() => {
+    toggleFavorite(card.id)
+    animateBtn('fav')
+  }, [card.id, toggleFavorite, animateBtn])
+
+  const handleDone = useCallback(() => {
+    toggleCompleted(card.id)
+    animateBtn('done')
+  }, [card.id, toggleCompleted, animateBtn])
 
   // Focus trap + Esc
   useEffect(() => {
@@ -276,19 +298,58 @@ export default function CardModal({ card, onClose }) {
             </div>
           )}
 
-          {/* CTA */}
-          {provider.officialUrl && (
-            <a
-              href={provider.officialUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl text-white font-bold text-base transition-all hover:-translate-y-0.5 hover:shadow-lg"
-              style={{ background: provider.gradient }}
+          {/* CTA row: official + favorites + done */}
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:flex-wrap">
+            {/* Official CTA */}
+            {provider.officialUrl && (
+              <a
+                href={provider.officialUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 flex-1 py-3.5 rounded-2xl text-white font-bold text-base transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                style={{ background: provider.gradient }}
+              >
+                {provider.name}の公式サイトを開く
+                <ExternalLink size={16} />
+              </a>
+            )}
+
+            {/* Favorites toggle */}
+            <button
+              onClick={handleFav}
+              aria-pressed={fav}
+              aria-label={fav ? 'お気に入りを解除' : 'お気に入りに追加'}
+              className={`flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl font-bold text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 ${
+                btnScale.fav ? 'scale-95' : 'hover:scale-105'
+              } ${
+                fav
+                  ? 'bg-rose-500 text-white shadow-md'
+                  : 'bg-rose-50 dark:bg-rose-900/20 text-rose-500 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/30'
+              }`}
+              style={{ transition: 'transform 0.2s cubic-bezier(0.34,1.56,0.64,1), background 0.2s' }}
             >
-              {provider.name}の公式サイトを開く
-              <ExternalLink size={16} />
-            </a>
-          )}
+              <Heart size={16} fill={fav ? 'currentColor' : 'none'} />
+              {fav ? 'お気に入り中' : 'お気に入り'}
+            </button>
+
+            {/* Completed toggle */}
+            <button
+              onClick={handleDone}
+              aria-pressed={done}
+              aria-label={done ? '学習済みを解除' : '学習済みにする'}
+              className={`flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl font-bold text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400 ${
+                btnScale.done ? 'scale-95' : 'hover:scale-105'
+              } ${
+                done
+                  ? 'bg-green-500 text-white shadow-md'
+                  : 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30'
+              }`}
+              style={{ transition: 'transform 0.2s cubic-bezier(0.34,1.56,0.64,1), background 0.2s' }}
+            >
+              <CheckCircle2 size={16} />
+              {done ? '学習済み（解除）' : '学習済みにする'}
+            </button>
+          </div>
         </div>
       </div>
     </div>

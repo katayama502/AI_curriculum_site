@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Play, ChevronRight } from 'lucide-react'
 import { providers, commonProvider, categories, levels } from '../data/content.js'
+import { useProgress } from '../context/CardProgressContext.jsx'
 
 const allProviders = [commonProvider, ...providers]
 
@@ -9,6 +10,26 @@ export default function CardItem({ card, onClick }) {
   const category = categories.find((c) => c.id === card.categoryId)
   const level = levels[card.level]
 
+  const { isFavorite, isCompleted, toggleFavorite, toggleCompleted } = useProgress()
+  const fav = isFavorite(card.id)
+  const done = isCompleted(card.id)
+
+  const handleFavClick = useCallback(
+    (e) => {
+      e.stopPropagation()
+      toggleFavorite(card.id)
+    },
+    [card.id, toggleFavorite]
+  )
+
+  const handleDoneClick = useCallback(
+    (e) => {
+      e.stopPropagation()
+      toggleCompleted(card.id)
+    },
+    [card.id, toggleCompleted]
+  )
+
   return (
     <article
       onClick={onClick}
@@ -16,7 +37,11 @@ export default function CardItem({ card, onClick }) {
       role="button"
       onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onClick()}
       aria-label={`${card.title}の詳細を見る`}
-      className="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-card hover:shadow-card-hover hover:-translate-y-1.5 transition-all duration-300 cursor-pointer overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col animate-fade-in"
+      className={`group relative bg-white dark:bg-gray-800 rounded-2xl shadow-card hover:shadow-card-hover hover:-translate-y-1.5 transition-all duration-300 cursor-pointer overflow-hidden border flex flex-col animate-fade-in ${
+        done
+          ? 'border-green-400/40 ring-2 ring-green-400/30 opacity-90'
+          : 'border-gray-100 dark:border-gray-700'
+      }`}
       style={{
         '--accent': provider.accent,
         '--accent-soft': provider.accentSoft,
@@ -28,6 +53,31 @@ export default function CardItem({ card, onClick }) {
         style={{ background: provider.gradient }}
         aria-hidden="true"
       />
+
+      {/* ✓ 学習済みバッジ */}
+      {done && (
+        <div className="absolute top-3 left-3 z-10 flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-500 text-white text-xs font-bold shadow-sm select-none">
+          <span aria-hidden="true">✓</span>
+          学習済み
+        </div>
+      )}
+
+      {/* ♥ お気に入りトグル（右上） */}
+      <button
+        onClick={handleFavClick}
+        aria-pressed={fav}
+        aria-label={fav ? 'お気に入りを解除' : 'お気に入りに追加'}
+        className={`absolute top-3 right-3 z-10 flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 ${
+          fav
+            ? 'bg-rose-500 text-white shadow-md scale-110'
+            : 'bg-white/80 dark:bg-gray-700/80 text-gray-400 hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 hover:scale-110'
+        }`}
+        style={fav ? { animation: 'fav-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)' } : undefined}
+      >
+        <span className="text-sm leading-none" aria-hidden="true">
+          {fav ? '♥' : '♡'}
+        </span>
+      </button>
 
       {/* Thumbnail (YouTube) */}
       {card.youtube && (
@@ -93,7 +143,22 @@ export default function CardItem({ card, onClick }) {
         </p>
 
         {/* Footer */}
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-between">
+          {/* Done quick-toggle */}
+          <button
+            onClick={handleDoneClick}
+            aria-pressed={done}
+            aria-label={done ? '学習済みを解除' : '学習済みにする'}
+            className={`flex items-center gap-1 text-xs font-medium rounded-full px-2.5 py-1 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400 ${
+              done
+                ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-400 hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-500'
+            }`}
+          >
+            <span className="text-sm" aria-hidden="true">{done ? '✓' : '○'}</span>
+            {done ? '学習済み' : '未学習'}
+          </button>
+
           <span
             className="flex items-center gap-1 text-xs font-semibold transition-all group-hover:gap-2"
             style={{ color: provider.accent }}

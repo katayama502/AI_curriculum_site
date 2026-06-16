@@ -236,7 +236,6 @@ export const cards = [
       "無料でも高性能モデルを一定回数使える",
       "会話は自動で履歴に保存され、後から続きを再開できる",
     ],
-    youtube: "7DkEl0kiD9g",
   },
   {
     id: "gpt-overview",
@@ -252,7 +251,6 @@ export const cards = [
       "クリエイティブ：画像生成、ネーミング、キャッチコピー",
       "分析：表やファイルを読み込んでグラフ化・集計",
     ],
-    youtube: "UIyokWUJHck",
   },
   {
     id: "gpt-voice",
@@ -416,7 +414,6 @@ export const cards = [
       "マイクや画像アイコンで音声・写真も使える",
     ],
     points: ["Googleの検索基盤と連携し、最新情報の調べ物に強い"],
-    youtube: "watp8CGPa6c",
   },
   {
     id: "gem-overview",
@@ -565,7 +562,6 @@ export const cards = [
       "気に入った対話は『Projects』で整理できる",
     ],
     points: ["丁寧で自然な日本語と、長文の扱いが得意"],
-    youtube: "a49tuT-O6ag",
   },
   {
     id: "cl-overview",
@@ -581,7 +577,6 @@ export const cards = [
       "思考：壁打ち相手として考えの整理・深掘りが得意",
       "制作：Artifactsで文書やちょっとしたアプリも作れる",
     ],
-    youtube: "UdEIgP4B0Bs",
   },
   {
     id: "cl-files",
@@ -666,7 +661,6 @@ export const cards = [
       "エラーメッセージを貼って原因と修正案を聞く",
       "プログラミング学習の質問相手にも最適",
     ],
-    youtube: "4NDb-X624gY",
   },
   {
     id: "cl-brainstorm",
@@ -711,6 +705,63 @@ export const cards = [
     ],
   },
 ];
+
+// -----------------------------------------------------------------------------
+// 3-b. 各カードのYouTube動画（厳選・実在＆埋め込み確認済み 2026-06）
+//   カードID → 動画ID(11文字)。動画を変えたい時はここだけ直せばOK。
+//   動画が非公開になった場合もこのIDを差し替えてください。
+//   ※ここに無いカードIDは動画なしになります。
+// -----------------------------------------------------------------------------
+const cardVideos = {
+  // AI共通の基礎
+  "c-what-is-ai": "YFtoy_tfYfc",
+  "c-hallucination": "xaW1JOkVigY",
+  "c-privacy": "POnuTF1Dens",
+  "c-prompt-basics": "drSBwuatp2o",
+  "c-compare": "4gaP_6RC2VY",
+  "c-iterate": "lLHJ46ss_7E",
+  // ChatGPT
+  "gpt-start": "EpvqUuHq4Rc",
+  "gpt-overview": "aIhn9XXpTRY",
+  "gpt-voice": "SQwbgyuwH3I",
+  "gpt-vision": "9ht7y6cnUUE",
+  "gpt-custom": "i3e26vgYYeg",
+  "gpt-meeting": "pbcWRo52npo",
+  "gpt-email": "Xm99TjhVw8Q",
+  "gpt-excel": "Jd_kJRSzZD0",
+  "gpt-data": "e27cLeNbPxw",
+  "gpt-meal": "1gmBlmK4BwA",
+  "gpt-travel": "p1_sZ5NIMrg",
+  "gpt-learn": "ac9m5kGQDwU",
+  // Gemini
+  "gem-start": "o5kXK5JvIt8",
+  "gem-overview": "bntUu77o6Vw",
+  "gem-youtube": "9buDnQvQoGc",
+  "gem-research": "4ZtCANJcdEQ",
+  "gem-image": "fXTLSjO_S_Y",
+  "gem-gmail": "yi0bDhRFAAI",
+  "gem-docs": "UN_fExnmSLE",
+  "gem-summarize-doc": "J5jigeCgKyo",
+  "gem-travel": "6LzFY1CCsSo",
+  "gem-study": "cdC_GHyi0UQ",
+  // Claude
+  "cl-start": "fZD2IlRGBTI",
+  "cl-overview": "qZT57PZXG3o",
+  "cl-files": "XpBDBRGy_94",
+  "cl-projects": "RcLDdRBUanI",
+  "cl-artifacts": "LPUPKoV14e0",
+  "cl-writing": "gu6_cDIvFNw",
+  "cl-longdoc": "JvJKjYMxZVM",
+  "cl-coding": "Jhxj1fDN2DU",
+  "cl-brainstorm": "zNxg1l-55O8",
+  "cl-learn": "5f6SNajwepQ",
+  "cl-life": "n6MLfIYswyM",
+};
+
+// 各カードへ動画IDを割り当てる（単一の真実: cardVideos）
+cards.forEach((card) => {
+  if (cardVideos[card.id]) card.youtube = cardVideos[card.id];
+});
 
 // -----------------------------------------------------------------------------
 // 4. サイト全体のテキスト
