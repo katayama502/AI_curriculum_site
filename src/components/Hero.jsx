@@ -50,11 +50,11 @@ export default function Hero() {
         </div>
 
         {/* Main title */}
-        <h1 className="font-jakarta font-extrabold text-4xl sm:text-5xl md:text-6xl leading-tight mb-6 text-ink dark:text-white tracking-tight">
+        <h1 className="font-jakarta font-extrabold text-[1.75rem] sm:text-5xl md:text-6xl leading-[1.2] mb-6 text-ink dark:text-white tracking-tight">
           {site.title}
           <br />
           <span
-            className="gradient-text"
+            className="gradient-text text-[1.5rem] sm:text-5xl md:text-6xl"
             style={{
               backgroundImage: 'linear-gradient(135deg, #10A37F 0%, #4285F4 50%, #D97757 100%)',
             }}

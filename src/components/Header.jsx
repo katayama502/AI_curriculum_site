@@ -88,8 +88,8 @@ export default function Header({ isDark, onToggleDark, completedCount = 0, total
           className="flex items-center gap-2 group"
           onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
         >
-          <span className="text-2xl" role="img" aria-label="ロゴ">🤖</span>
-          <span className="font-jakarta font-bold text-lg text-ink dark:text-white leading-tight tracking-tight group-hover:opacity-80 transition-opacity">
+          <span className="text-xl sm:text-2xl" role="img" aria-label="ロゴ">🤖</span>
+          <span className="font-jakarta font-bold text-base sm:text-lg text-ink dark:text-white leading-tight tracking-tight group-hover:opacity-80 transition-opacity">
             はじめての<span className="text-brand-common">AI</span>ナビ
           </span>
         </a>
@@ -142,34 +142,44 @@ export default function Header({ isDark, onToggleDark, completedCount = 0, total
       </div>
 
       {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-800 px-4 py-3 flex flex-col gap-1">
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          menuOpen ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div className="bg-white/95 dark:bg-gray-950/95 backdrop-blur-md border-t border-gray-100 dark:border-gray-800 px-4 pb-4 pt-2">
           {/* Progress chip mobile */}
           <button
             onClick={handleScrollToDashboard}
-            className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="w-full flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-gray-50 dark:bg-gray-800/60 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors mb-2"
           >
             <MiniRing pct={pct} />
-            学習進捗 {pct}%
+            <span>学習進捗</span>
+            <span className="ml-auto font-bold text-brand-common">{pct}%</span>
           </button>
 
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-              onClick={(e) => {
-                e.preventDefault()
-                setMenuOpen(false)
-                document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })
-              }}
-            >
-              <span aria-hidden="true">{item.emoji}</span>
-              {item.label}
-            </a>
-          ))}
+          <p className="text-[10px] font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-widest px-1 mb-1.5">
+            カテゴリへジャンプ
+          </p>
+          <div className="grid grid-cols-2 gap-1.5">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/60 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMenuOpen(false)
+                  document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })
+                }}
+              >
+                <span aria-hidden="true" className="text-base">{item.emoji}</span>
+                <span className="truncate">{item.label}</span>
+              </a>
+            ))}
+          </div>
         </div>
-      )}
+      </div>
     </header>
   )
 }
