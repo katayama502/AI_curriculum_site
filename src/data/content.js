@@ -17,12 +17,12 @@ export const providers = [
     emoji: "💬",
     tagline: "世界で最も使われている対話型AI",
     description:
-      "OpenAIが開発した対話型AI。文章作成・要約・アイデア出し・画像生成・データ分析まで幅広くこなす万能型。迷ったらまず触ってみたい定番。",
+      "OpenAIが開発した対話型AI。GPT-5・o3/o4推論モデルを搭載し、文章作成・要約・画像生成・データ分析・自律エージェントまでこなす万能型。迷ったらまず触ってみたい定番。",
     accent: "#10A37F", // OpenAIグリーン
     accentSoft: "#E7F7F1",
     gradient: "linear-gradient(135deg, #10A37F 0%, #1A7F64 100%)",
     officialUrl: "https://chatgpt.com",
-    freePlan: "無料プランあり（GPTの上位モデルは回数制限あり）",
+    freePlan: "無料プランあり（高性能モデルは回数制限あり）",
     bestFor: "とにかく万能。最初の1つに最適",
   },
   {
@@ -30,30 +30,30 @@ export const providers = [
     name: "Gemini",
     vendor: "Google",
     emoji: "✨",
-    tagline: "Googleサービスと相性抜群のAI",
+    tagline: "動画・音声・マルチモーダルで最先端のAI",
     description:
-      "Googleが開発したAI。Gmail・ドキュメント・スプレッドシート・YouTubeなどGoogleサービスとの連携が強み。検索的な使い方や長い動画・資料の要約が得意。",
+      "Googleが開発したAI。Gemini 2.5 Pro/Flashは動画・音声・画像処理で業界トップクラス。Gmail・ドキュメント・YouTubeとの連携に加え、Deep Research、AI動画生成（Veo）まで対応。",
     accent: "#4285F4", // Googleブルー
     accentSoft: "#E8F0FE",
     gradient: "linear-gradient(135deg, #4285F4 0%, #9B72F2 50%, #D96570 100%)",
     officialUrl: "https://gemini.google.com",
     freePlan: "Googleアカウントがあれば無料で利用可能",
-    bestFor: "Googleをよく使う人・要約や調べ物に",
+    bestFor: "Google連携・動画/音声処理・マルチモーダルな用途に",
   },
   {
     id: "claude",
     name: "Claude",
     vendor: "Anthropic",
     emoji: "🧠",
-    tagline: "文章力と長文読解にすぐれたAI",
+    tagline: "文章力・コーディング・長文読解で最高峰のAI",
     description:
-      "Anthropicが開発したAI。自然で丁寧な文章作成、長い資料の読み込み、思考の整理が得意。安全性を重視した設計で、じっくり相談する相棒として人気。",
+      "Anthropicが開発したAI。Claude Sonnet 4.6などの最新モデルは長文読解・コード生成・思考の深掘りで定評あり。安全性重視の設計で、ビジネス利用でも信頼性が高い。MCPにも業界最速で対応。",
     accent: "#D97757", // Anthropicテラコッタ
     accentSoft: "#FBEEE8",
     gradient: "linear-gradient(135deg, #D97757 0%, #C15F3C 100%)",
     officialUrl: "https://claude.ai",
     freePlan: "無料プランあり（利用量に上限あり）",
-    bestFor: "文章作成・長文の要約・じっくり相談",
+    bestFor: "文章作成・長文の要約・コーディング・じっくり相談",
   },
 ];
 
@@ -189,15 +189,18 @@ export const cards = [
     id: "c-compare",
     providerId: "common",
     categoryId: "basics",
-    title: "3社をどう使い分ける？",
+    title: "3社をどう使い分ける？（2026年版）",
     level: "beginner",
     summary:
-      "どれも優秀ですが得意分野が少し違います。迷ったらChatGPT、Google中心ならGemini、文章・長文ならClaudeが目安。",
+      "どれも急速に進化中ですが得意分野が異なります。迷ったらChatGPT、動画・Google連携ならGemini、文章・コーディングならClaudeが目安。",
     points: [
-      "ChatGPT：万能型。画像生成・データ分析・音声会話までこなす定番",
-      "Gemini：Gmail/ドキュメント/YouTubeとの連携と、長い資料・動画の要約が強い",
-      "Claude：自然で丁寧な文章作成、長文読解、じっくりした相談が得意",
+      "ChatGPT（GPT-5/o3）：万能型。画像生成・音声会話・高度な推論まで。最初の1台として最適",
+      "Gemini（2.5 Pro/Flash）：動画・音声のマルチモーダルで業界最先端。Google連携・Deep Researchも強い",
+      "Claude（Sonnet 4.6/Opus 4.8）：文章の質・長文読解・コーディングで定評。MCPエージェント活用にも最適",
       "全部無料で試せるので、同じ質問を3社に投げて“相性”を確かめるのがおすすめ",
+    ],
+    tips: [
+      "2026年は思考モデル（推論AI）が各社で標準化。難しい問題ほど推論モードを試してみよう",
     ],
   },
   {
@@ -212,6 +215,43 @@ export const cards = [
       "『3案出して』→気に入った案を『これをもっと丁寧に』と育てる",
       "『なぜそう考えたの？』と聞くと、前提のズレに気づける",
       "うまくいったプロンプトはメモして“自分の型”として再利用する",
+    ],
+  },
+
+  {
+    id: "c-agents",
+    providerId: "common",
+    categoryId: "basics",
+    title: "AIエージェントって何？（2026年の最重要トレンド）",
+    level: "intermediate",
+    summary:
+      "「質問に答えるAI」から「自分で考えて動くAI（エージェント）」へ。2026年のAIは指示した目標に向かって複数のステップを自律的にこなせるようになりました。",
+    points: [
+      "従来のAI：人が質問→AIが1回答える（1往復）",
+      "エージェントAI：目標を伝えると、調査→計画→実行→確認を自分でループして完遂する",
+      "ChatGPT・Gemini（Project Mariner）・Claude（MCP連携）がそれぞれエージェント機能を提供",
+      "できること例：競合5社を調べてスプレッドシートにまとめて、メールを確認して返信草案を作って",
+    ],
+    tips: [
+      "エージェントは便利だが、重要な操作（送信・購入・削除）は人間が最終確認する習慣を持とう",
+    ],
+  },
+  {
+    id: "c-reasoning",
+    providerId: "common",
+    categoryId: "basics",
+    title: "「思考モデル」とは？難問に強い推論AI",
+    level: "intermediate",
+    summary:
+      "2026年に各社が標準化した「思考モデル（推論モデル）」は、答える前に内部でじっくり考えることで、複雑な問題の正確性が大幅に向上します。",
+    points: [
+      "通常モデル：質問を受けて即座に答える。速いが複雑な問題は精度が落ちやすい",
+      "思考モデル：答える前に内部で熟考するプロセスを踏む。遅い代わりに精度が高い",
+      "各社の思考モデル：o3/o4（OpenAI）・Gemini 2.5 Pro（Google）・Extended Thinking（Claude）",
+      "使いどころ：数学・論理・法律・医療・複雑な計画立案など、ミスが許されない場面に最適",
+    ],
+    tips: [
+      "日常的な文章作成には通常モデルで十分。難しい問題だけ思考モデルを使い分けるのがコツ",
     ],
   },
 
@@ -241,15 +281,15 @@ export const cards = [
     id: "gpt-overview",
     providerId: "chatgpt",
     categoryId: "basics",
-    title: "ChatGPTで“できること”全体像",
+    title: "ChatGPTで“できること”全体像（2026年版）",
     level: "beginner",
     summary:
-      "文章・要約・翻訳・アイデア出し・画像生成・データ分析・コード作成まで。1つで何役もこなす万能ツールです。",
+      "文章・要約・翻訳・アイデア出し・画像生成・データ分析・コード作成・自律エージェントまで。GPT-5の登場でさらに万能になりました。",
     points: [
-      "文章：メール・ブログ・企画書の作成と推敲",
-      "情報：長文の要約、翻訳、調べ物（検索機能オン時）",
-      "クリエイティブ：画像生成、ネーミング、キャッチコピー",
-      "分析：表やファイルを読み込んでグラフ化・集計",
+      "文章：メール・ブログ・企画書の作成と推敲（GPT-5で自然さが大幅向上）",
+      "推論：o3/o4思考モデルで数学・法律・複雑な計画など難問に強い",
+      "クリエイティブ：高品質な画像生成（DALL-E 3）、ネーミング、キャッチコピー",
+      "分析：表やファイルを読み込んでグラフ化・集計、Canvasでの共同編集",
     ],
   },
   {
@@ -419,15 +459,15 @@ export const cards = [
     id: "gem-overview",
     providerId: "gemini",
     categoryId: "basics",
-    title: "Geminiの強み＝Google連携",
+    title: "Geminiの強み＝マルチモーダル＋Google連携",
     level: "beginner",
     summary:
-      "Gmail・ドキュメント・スプレッドシート・YouTube・マップなどGoogleサービスと深く連携できるのが最大の特徴です。",
+      "2026年のGeminiは動画・音声・画像のマルチモーダル処理で業界トップクラス。Gmail・ドキュメントとの連携に加え、AI動画生成（Veo）も使えます。",
     points: [
-      "Gmailの長いスレッドを要約／返信文を作成",
-      "ドキュメントやスプレッドシート上でAIに手伝ってもらう",
-      "YouTube動画やWebページの内容を要約",
-      "Googleマップ情報を使った調べ物にも強い",
+      "マルチモーダル：テキスト・画像・音声・動画を同時に扱える（Gemini 2.5 Pro）",
+      "AI動画生成：Veoで文章からリアルな動画を自動生成（Google Labs）",
+      "Google連携：Gmail・ドキュメント・スプレッドシート・YouTube動画の要約が強い",
+      "Deep Research：複数サイトを自動調査して出典付きレポートを生成",
     ],
   },
   {
@@ -567,15 +607,18 @@ export const cards = [
     id: "cl-overview",
     providerId: "claude",
     categoryId: "basics",
-    title: "Claudeが得意なこと",
+    title: "Claudeが得意なこと（2026年版）",
     level: "beginner",
     summary:
-      "自然な文章作成・推敲、長い資料の読み込み、考えの整理が強み。安全性を重視し、ていねいに付き合ってくれます。",
+      "文章・コーディング・長文読解は引き続き最高峰。2026年はExtended Thinking（深い推論）とMCPエージェント連携でさらに進化しました。",
     points: [
-      "文章：ニュアンスを汲んだライティング・校正・要約",
-      "長文：大量のテキストや複数ファイルをまとめて読める",
-      "思考：壁打ち相手として考えの整理・深掘りが得意",
-      "制作：Artifactsで文書やちょっとしたアプリも作れる",
+      "文章：ニュアンスを汲んだライティング・校正・要約（日本語の質が高い）",
+      "コーディング：コード生成・デバッグで各社ベンチマーク上位。Claude Codeとしても利用可",
+      "思考：Extended Thinking（深い推論モード）で複雑な問題も段階的に解ける",
+      "エージェント：MCP（Model Context Protocol）に業界最速対応。外部ツールとの連携が強い",
+    ],
+    tips: [
+      "Claudeは構造的なプロンプト（箇条書きや見出しで整理した指示）が特に効果的。複雑な依頼ほど精度が上がる",
     ],
   },
   {
@@ -730,14 +773,14 @@ export const cards = [
     id: "c-paid-vs-free",
     providerId: "common",
     categoryId: "basics",
-    title: "無料で十分？有料プランとの違い",
+    title: "無料で十分？有料プランとの違い（2026年版）",
     level: "beginner",
     summary:
-      "3社とも無料で十分使えますが、頻繁に使うなら有料が快適。月額料金と見返りを比較してみましょう。",
+      "3社とも無料で十分使えますが、頻繁に使うなら有料が快適。2026年は有料プランで推論モデルも使えるようになり差が広がっています。",
     points: [
-      "ChatGPT Plus（約3,000円/月）：高性能モデル優先・回数上限緩和・画像生成・ファイル分析",
-      "Gemini Advanced（約3,000円/月）：高性能モデル優先・Workspace連携強化・長い動画分析",
-      "Claude Pro（約3,000円/月）：長文・高性能モデル使い放題・Projects機能フル活用",
+      "ChatGPT Plus（約3,000円/月）：GPT-5・o3推論モデル優先・高品質画像生成・ファイル分析・エージェント機能",
+      "Gemini Advanced（約3,000円/月）：Gemini 2.5 Pro優先・Deep Research・長い動画分析・Google One 2TBストレージ付き",
+      "Claude Pro（約3,000円/月）：Opus 4.8/Sonnet 4.6使い放題・Projects機能フル活用・Extended Thinking（深い推論）",
       "毎日使うビジネス用途なら費用対効果◎。週数回の利用なら無料でも十分な場合が多い",
     ],
     tips: [
@@ -890,6 +933,24 @@ export const cards = [
     ],
   },
   {
+    id: "gpt-reasoning",
+    providerId: "chatgpt",
+    categoryId: "tips",
+    title: "o3/o4推論モデルで難問を解く",
+    level: "intermediate",
+    summary:
+      "ChatGPTのo3・o4シリーズは「答える前に内部でじっくり考える」推論モデル。複雑な問題・数学・多段階の計画に圧倒的な強さを発揮します。",
+    points: [
+      "モデル選択でo3またはo4-miniを選ぶだけで推論モードに切り替わる",
+      "通常モデルより回答が遅いが、数学・論理・コード生成・複雑な計画の正確性が大幅向上",
+      "o4-miniはコスト効率が高く、コーディングや推論タスクにコスパ最強",
+      "使い分け：日常会話はGPT-5、難しい問題だけo3/o4を使うとトークン節約にもなる",
+    ],
+    tips: [
+      "「段階的に考えてから答えて」と一言添えると、通常モデルでも推論の質が上がる",
+    ],
+  },
+  {
     id: "gpt-english",
     providerId: "chatgpt",
     categoryId: "personal",
@@ -1002,6 +1063,25 @@ export const cards = [
     ],
   },
 
+  {
+    id: "gem-veo",
+    providerId: "gemini",
+    categoryId: "tips",
+    title: "Veo 3でAI動画を生成する",
+    level: "intermediate",
+    summary:
+      "GoogleのVeo 3は、文章を入力するだけでリアルな動画・音声付き映像を生成できるAI。2026年のGemini最大の目玉機能です。",
+    points: [
+      "夕暮れの海辺を歩く人のシーンのように日本語でシーンを説明するだけで動画が完成",
+      "音声・BGM・環境音まで自動生成（Veo 3）。映像と音が同時に作られる",
+      "SNS投稿・プレゼン資料・広告素材のたたき台づくりに活用できる",
+      "Google Labs（labs.google）から試用可能（2026年時点で段階的公開中）",
+    ],
+    tips: [
+      "生成動画の商用利用は規約を確認。SynthID（透かし）が埋め込まれており、AI生成と識別される",
+    ],
+  },
+
   // ===========================================================================
   // Claude（追加）
   // ===========================================================================
@@ -1086,13 +1166,15 @@ export const cards = [
 //   ※ここに無いカードIDは動画なしになります。
 // -----------------------------------------------------------------------------
 const cardVideos = {
-  // AI共通の基礎
+  // AI共通の基礎（2026年版）
   "c-what-is-ai": "YFtoy_tfYfc",
   "c-hallucination": "xaW1JOkVigY",
   "c-privacy": "POnuTF1Dens",
   "c-prompt-basics": "drSBwuatp2o",
   "c-compare": "4gaP_6RC2VY",
   "c-iterate": "lLHJ46ss_7E",
+  "c-agents": "sal78ACtGTY",
+  "c-reasoning": "eqXMPMiLbCE",
   // ChatGPT
   "gpt-start": "EpvqUuHq4Rc",
   "gpt-overview": "aIhn9XXpTRY",
@@ -1137,12 +1219,14 @@ const cardVideos = {
   "c-ai-image": "bza_cmNgT1E",
   "c-daily-habit": "oovSJp62vDg",
   // ChatGPT（追加）
+  "gpt-reasoning": "7oeAkTTYHiI",
   "gpt-canvas": "HyDh0Wb_KdA",
   "gpt-memory": "U8Es4bxPIlk",
   "gpt-gpts": "sDruvstmu6I",
   "gpt-search": "Gjb87d9MBzQ",
   "gpt-english": "c215r9FLbaw",
   // Gemini（追加）
+  "gem-veo": "8zVVvnM73kA",
   "gem-notebooklm": "Wok45BQMEV8",
   "gem-translate": "HuyOO_oxoic",
   "gem-advanced": "watp8CGPa6c",
